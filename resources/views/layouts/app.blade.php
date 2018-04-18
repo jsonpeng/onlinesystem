@@ -2,17 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>芸来软件</title>
+    <title>在线测评系统后台</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/iCheck/1.0.2/skins/all.css">
     <link rel="stylesheet" href="{{ asset('vendor/adminLTE/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminLTE/css/skins/skin-blue.min.css') }}">
-
-    
     <link rel="stylesheet" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="https://cdn.bootcss.com/element-ui/1.4.3/theme-default/index.css" rel="stylesheet">
     
@@ -23,17 +21,6 @@
 </head>
 
 <body class="skin-blue sidebar-mini">
-    <style type="text/css">
-        .content-header{overflow: hidden;}
-        .box.box-primary{border-top: none;}
-        thead {
-            border-bottom: 1px solid #d0d0d0;
-        }
-        .mce-i-browse:before {
-            content: "\e014";
-        }
-    </style>
-
 @if (!Auth::guest())
     <div class="wrapper">
         <!-- Main Header -->
@@ -41,7 +28,7 @@
 
             <!-- Logo -->
             <a href="#" class="logo">
-                <b>芸来网站管理系统</b>
+                <b>在线测评系统后台</b>
             </a>
 
             <!-- Header Navbar -->
@@ -58,19 +45,25 @@
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                <img src="http://7xkyc6.com1.z0.glb.clouddn.com/logowithouttext200x200.jpg"
+                                <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg"
                                      class="user-image" alt="User Image"/>
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">{!! Auth::user()->name !!}</span>
                             </a>
                             <ul class="dropdown-menu">
+                                <!-- The user image in the menu -->
+                                <li class="user-header">
+                                    <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg"
+                                         class="img-circle" alt="User Image"/>
+                                    <p>
+                                        {!! Auth::user()->name !!}
+                                        <small>Member since {!! Auth::user()->created_at->format('M. Y') !!}</small>
+                                    </p>
+                                </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="{!! url('/password/reset') !!}" class="btn btn-default btn-flat">
-                                            修改密码
-                                        </a>
-
+                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
@@ -98,7 +91,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright 2016 <a href="http://www.yunlike.cn" target="_blank">芸来软件</a>.</strong> All rights reserved.
+            <strong>Copyright © 2018 <a href="#">在线测评系统后台</a>.</strong> All rights reserved.
         </footer>
 
     </div>
@@ -118,7 +111,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{!! url('/') !!}">
-                    InfyOm Generator
+                    在线测评系统后台
                 </a>
             </div>
 
@@ -148,7 +141,6 @@
         </div>
     </div>
     @endif
-
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
@@ -163,55 +155,5 @@
     <script src="{{ asset('layer_mobile/layer.js') }}"></script>
 
     @yield('scripts')
-    <script type="text/javascript">
-    $('#add_post').click(function(){
-       $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-     $.ajax({
-                    url: '/zcjy/getCustomType',
-                    type: 'POST',
-                    success: function(data) {
-
-                 var status=data.status;
-                 var alltype=data.msg;
-                 var html='';
-
-                 if(status){
-                for(var i=0;i<alltype.length;i++){
-                    html +='<a class="btn btn-success" style="margin-left:10px;" href="/zcjy/posts/create?post_type='+alltype[i].slug+'">'+alltype[i].name+'</a>';
-                }
-                console.log(html);
-
-               layer.open({
-                      type: 1,
-                      area: ['680px', '450px'], 
-                      content: '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button><h4 class="modal-title">请选择一种类型进行添加</h4></div><div class="modal-body"><a href="/zcjy/posts/create" class="btn btn-default">文章</a>'+html+'</div>'
-                    });
-
-            }else{
-                alert('未知错误');
-            }
-
-            }
-        });
-
-    });
-
-$('.select_cat').click(function(){
-    var slug=$(this).data('slug');
-    if($(this).is(':checked')){
-          $('#'+slug).show(500);
-          $('#post').val(slug);
-    }else{
-          $('#'+slug).hide(500);
-    }
-});
-
-    </script>
 </body>
 </html>
-
-

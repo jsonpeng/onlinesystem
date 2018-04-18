@@ -24,15 +24,18 @@ Route::get('/', 'FrontController@index')->name('index');
 
 
 //后台管理系统
-Route::group(['middleware' => ['auth'], 'prefix' => 'zcjy'], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => 'online'], function () {
 	//后台首页
-	//Route::get('/', 'PostController@index');
+	Route::get('/home', 'HomeController@index');
 
 });
 
 
 
+Route::resource('informations', 'InformationsController');
 
+Route::resource('attachInformations', 'AttachInformationsController');
 
+Route::resource('recountInformations', 'RecountInformationsController');
 
-
+Route::resource('results', 'ResultController');
