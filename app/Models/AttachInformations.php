@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Informations;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -27,7 +28,8 @@ class AttachInformations extends Model
     public $fillable = [
         'type',
         'content',
-        'info_id'
+        'info_id',
+        'num'
     ];
 
     /**
@@ -50,5 +52,9 @@ class AttachInformations extends Model
         
     ];
 
+    //题目
+    public function getinfosAttribute(){
+        return Informations::find($this->info_id);
+    }
     
 }

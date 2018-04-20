@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//API请求
+Route::group(['prefix'=>'api'], function () {
+	//根据题目id获取它的选项
+	Route::get('get_info_select/{id}/{status?}','ApiController@getInfoSelectById');
+});
+
 
 Auth::routes();
 

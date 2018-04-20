@@ -30,10 +30,30 @@ class InformationsController extends AppBaseController
     public function index(Request $request)
     {
         $this->informationsRepository->pushCriteria(new RequestCriteria($request));
-        $informations = $this->informationsRepository->all();
+
+        $input=$request->all();
+
+        $tools=$this->varifyTools($input);
+
+        //默认的数值
+        $informations = $this->defaultSearchState($this->informationsRepository->model());
+
+        //如果我的选项中带有题目的参数 就模糊查询
+        if(array_key_exists('title',$input) && !empty($input['title'])){
+             $informations= $informations->where('title','like','%'.$input['title'].'%');
+        }
+
+        if(array_key_exists('type',$input) && !empty($input['type']) || array_key_exists('type',$input) && $input['type'] == '0'){
+             $informations= $informations->where('type',$input['type']);
+        }
+
+
+        $informations=$this->descAndPaginateToShow($informations);
 
         return view('informations.index')
-            ->with('informations', $informations);
+                ->with('informations', $informations)
+                ->with('input',$input)
+                ->with('tools',$tools);
     }
 
     /**

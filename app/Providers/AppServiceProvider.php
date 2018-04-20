@@ -32,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
                 '*', 'App\Http\ViewComposers\BaseComposer'
             );
         }
+
+        $this->app->singleton('info', 'App\Repositories\InformationsRepository');
         
     }
 }

@@ -20,11 +20,12 @@ class CreateAttachInformationsTable extends Migration
             $table->string('content')->nullable()->comment('内容');
 
 
-            $table->integer('info_id')->nullable()->comment('题目id');
+            //$table->integer('info_id')->nullable()->comment('题目id');
+
+           
 
             $table->index(['id', 'created_at']);
-            $table->index('info_id');
-            
+     
             $table->timestamps();
             $table->softDeletes();
         });

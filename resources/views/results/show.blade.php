@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Result
+            答题结果
         </h1>
     </section>
     <div class="content">
@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('results.show_fields')
-                    <a href="{!! route('results.index') !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('results.index') !!}" class="btn btn-default">返回</a>
                 </div>
             </div>
         </div>

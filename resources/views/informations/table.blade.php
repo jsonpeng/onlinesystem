@@ -1,22 +1,21 @@
 <table class="table table-responsive" id="informations-table">
     <thead>
         <tr>
-        <th>Title</th>
-        <th>Type</th>
-        <th>Analysis</th>
-        <th>Sort</th>
-        <th>Content</th>
-        <th colspan="3">Action</th>
+        <th>题目</th>
+        <th>类型</th>
+
+        <th>排序</th>
+  
+        <th colspan="3">操作</th>
         </tr>
     </thead>
     <tbody>
     @foreach($informations as $informations)
+        <?php $select=$informations->select()->orderBy('num','asc')->get();?>
         <tr>
             <td>{!! $informations->title !!}</td>
-            <td>{!! $informations->type !!}</td>
-            <td>{!! $informations->analysis !!}</td>
+            <td>{!! $informations->Types !!}</td>
             <td>{!! $informations->sort !!}</td>
-            <td>{!! $informations->content !!}</td>
             <td>
                 {!! Form::open(['route' => ['informations.destroy', $informations->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
@@ -27,6 +26,19 @@
                 {!! Form::close() !!}
             </td>
         </tr>
+        @if(count($select))
+           @foreach($select as $item) 
+        
+                <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{!! route('attachInformations.edit', [$item->id]) !!}" target="_blank">{!! $item->type !!}:{!! $item->content !!}</a></td></tr>
+          
+           @endforeach
+
+                @if(!empty($informations->content))
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color: red;">答案:</strong>{!! $informations->content !!} </td></tr>
+                @endif
+
+        @endif
+
     @endforeach
     </tbody>
 </table>

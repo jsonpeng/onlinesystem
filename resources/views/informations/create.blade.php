@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Informations
+            题库列表
         </h1>
     </section>
     <div class="content">
@@ -21,4 +21,5 @@
             </div>
         </div>
     </div>
+     @include('admin.partial.imagemodel')
 @endsection

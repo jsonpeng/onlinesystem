@@ -1,18 +1,19 @@
 <table class="table table-responsive" id="attachInformations-table">
     <thead>
         <tr>
-            <th>Type</th>
-        <th>Content</th>
-        <th>Info Id</th>
-            <th colspan="3">Action</th>
+        <th>类型</th>
+        <th>内容</th>
+        <th>题目</th>
+        <th colspan="3">操作</th>
         </tr>
     </thead>
     <tbody>
     @foreach($attachInformations as $attachInformations)
+    <?php $infos=$attachInformations->infos; ?>
         <tr>
             <td>{!! $attachInformations->type !!}</td>
             <td>{!! $attachInformations->content !!}</td>
-            <td>{!! $attachInformations->info_id !!}</td>
+            <td>@if(!empty($infos)) <a href="{!! route('informations.edit', [$infos->id]) !!}" target="_blank">{!! $infos->title !!}</a>@endif</td>
             <td>
                 {!! Form::open(['route' => ['attachInformations.destroy', $attachInformations->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

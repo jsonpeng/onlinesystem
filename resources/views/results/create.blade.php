@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Result
+            答题结果
         </h1>
     </section>
     <div class="content">

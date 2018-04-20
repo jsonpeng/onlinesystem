@@ -56,5 +56,13 @@ class Informations extends Model
         'title' => 'required'
     ];
 
+    //类型
+    public function getTypesAttribute(){
+        return $this->type?'科目四':'科目一';
+    }
     
+    //选项
+    public function select(){
+        return $this->hasMany('App\Models\AttachInformations','info_id','id');
+    }
 }

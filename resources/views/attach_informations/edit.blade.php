@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Attach Informations
+            选项列表
         </h1>
    </section>
    <div class="content">
@@ -13,11 +13,14 @@
                <div class="row">
                    {!! Form::model($attachInformations, ['route' => ['attachInformations.update', $attachInformations->id], 'method' => 'patch']) !!}
 
-                        @include('attach_informations.fields')
+                        @include('attach_informations.fields',['select'=>$select])
 
                    {!! Form::close() !!}
                </div>
            </div>
        </div>
    </div>
+   
 @endsection
+
+@include('attach_informations.js')

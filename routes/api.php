@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,7 +11,3 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group([], function () {
-	//获取滚动横幅
-	//Route::get('/submit_data', 'FrontController@submitInfo');
-});

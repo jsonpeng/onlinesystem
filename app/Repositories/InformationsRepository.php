@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Informations;
 use InfyOm\Generator\Common\BaseRepository;
+use App\Models\AttachInformations;
 
 /**
  * Class InformationsRepository
@@ -34,4 +35,25 @@ class InformationsRepository extends BaseRepository
     {
         return Informations::class;
     }
+
+    // 根据题目(infomations)的id获取到它关联的选项
+    public function getInfoSelectById($id,$return_detail=true){
+        $info=$this->findWithoutFail($id);
+        if(!empty($info)){
+            if($return_detail){
+                 $select=$info->select()->orderBy('num','asc')->get();
+            }else{
+             $select=$info->select()->select('type')->orderBy('num','asc')->get();
+             $arr=[];
+                foreach ($select as $key => $value) {
+                    $arr[]=$value['type'];
+                }
+                $select=$arr;
+            }
+            return $select;
+        }else{
+            return [];
+        }
+    }
+
 }

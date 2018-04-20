@@ -1,13 +1,13 @@
 <table class="table table-responsive" id="recountInformations-table">
     <thead>
         <tr>
-            <th>User Id</th>
-        <th>Result</th>
-        <th>Mistake Type</th>
-        <th>Mistake Conten</th>
-        <th>Times</th>
-        <th>Num</th>
-            <th colspan="3">Action</th>
+            <th>用户Id</th>
+            <th>答题结果</th>
+             <th>错误选项</th>
+             <th>错误内容</th>
+            <th>答题次数</th>
+            <th>答题序号</th>
+            <th colspan="3">操作</th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +24,7 @@
                 <div class='btn-group'>
                     <a href="{!! route('recountInformations.show', [$recountInformations->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('recountInformations.edit', [$recountInformations->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('你确定吗?')"]) !!}
                 </div>
                 {!! Form::close() !!}
             </td>

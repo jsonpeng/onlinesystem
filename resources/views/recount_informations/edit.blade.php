@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Recount Informations
+            答题记录
         </h1>
    </section>
    <div class="content">

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Config;
 
 class AttachInformationsController extends AppBaseController
 {
@@ -30,10 +31,43 @@ class AttachInformationsController extends AppBaseController
     public function index(Request $request)
     {
         $this->attachInformationsRepository->pushCriteria(new RequestCriteria($request));
-        $attachInformations = $this->attachInformationsRepository->all();
+
+        $input=$request->all();
+
+        $tools=$this->varifyTools($input);
+
+        //默认的数值
+        $attachInformations = $this->defaultSearchState($this->attachInformationsRepository->model());
+
+        if(array_key_exists('type',$input) && !empty($input['type']) || array_key_exists('type',$input) && $input['type'] == '0'){
+             $attachInformations= $attachInformations->where('type',$input['type']);
+        }
+
+        //如果我的选项中带有题目的参数 就模糊查询
+        if(array_key_exists('content',$input) && !empty($input['content'])){
+             $attachInformations= $attachInformations->where('content','like','%'.$input['content'].'%');
+        }
+
+        //查题目
+        if(array_key_exists('info_id',$input) && !empty($input['info_id']) || array_key_exists('info_id',$input) && $input['info_id'] == '0'){
+             $attachInformations= $attachInformations->where('info_id',$input['info_id']);
+        }
+        //把ABCD的顺序带上去
+        $attachInformations=$attachInformations->orderBy('num','asc');
+        //题目
+        $infos=app('info')->all();
+        //选项
+        $select=Config::get('select');
+
+        $attachInformations=$this->descAndPaginateToShow($attachInformations);
+
 
         return view('attach_informations.index')
-            ->with('attachInformations', $attachInformations);
+                ->with('attachInformations', $attachInformations)
+                ->with('infos',$infos)
+                ->with('input',$input)
+                ->with('tools',$tools)
+                ->with('select',$select);
     }
 
     /**
@@ -43,7 +77,14 @@ class AttachInformationsController extends AppBaseController
      */
     public function create()
     {
-        return view('attach_informations.create');
+        //选项
+        $select=Config::get('select');
+        //题目
+        $infos=\App\Models\Informations::all();
+        //dd($select);
+        return view('attach_informations.create')
+                ->with('select',$select)
+                ->with('infos',$infos);
     }
 
     /**
@@ -57,9 +98,12 @@ class AttachInformationsController extends AppBaseController
     {
         $input = $request->all();
 
+        $input['num']=varifySelectTOSetNum($input['type']);
+
         $attachInformations = $this->attachInformationsRepository->create($input);
 
-        Flash::success('Attach Informations saved successfully.');
+
+        Flash::success('保存成功');
 
         return redirect(route('attachInformations.index'));
     }
@@ -94,6 +138,10 @@ class AttachInformationsController extends AppBaseController
     public function edit($id)
     {
         $attachInformations = $this->attachInformationsRepository->findWithoutFail($id);
+        //选项
+        $select=Config::get('select');
+        //题目
+        $infos=\App\Models\Informations::all();
 
         if (empty($attachInformations)) {
             Flash::error('Attach Informations not found');
@@ -101,7 +149,10 @@ class AttachInformationsController extends AppBaseController
             return redirect(route('attachInformations.index'));
         }
 
-        return view('attach_informations.edit')->with('attachInformations', $attachInformations);
+        return view('attach_informations.edit')
+                ->with('attachInformations', $attachInformations)
+                ->with('select',$select)
+                ->with('infos',$infos);
     }
 
     /**
@@ -121,10 +172,11 @@ class AttachInformationsController extends AppBaseController
 
             return redirect(route('attachInformations.index'));
         }
+        $input=$request->all();
+        $input['num']=varifySelectTOSetNum($input['type']);
+        $attachInformations = $this->attachInformationsRepository->update($input, $id);
 
-        $attachInformations = $this->attachInformationsRepository->update($request->all(), $id);
-
-        Flash::success('Attach Informations updated successfully.');
+        Flash::success('保存成功');
 
         return redirect(route('attachInformations.index'));
     }
@@ -148,7 +200,7 @@ class AttachInformationsController extends AppBaseController
 
         $this->attachInformationsRepository->delete($id);
 
-        Flash::success('Attach Informations deleted successfully.');
+        Flash::success('删除成功');
 
         return redirect(route('attachInformations.index'));
     }
