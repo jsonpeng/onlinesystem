@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', '2070817524@qq.com'),
-        'name' => env('MAIL_FROM_NAME', '芸来软件'),
+        'address' => env('MAIL_FROM_ADDRESS', '1127915086@qq.com'),
+        'name' => env('MAIL_FROM_NAME', '在线测试系统'),
     ],
 
     /*

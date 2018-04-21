@@ -12,15 +12,10 @@
 
 <!-- Mistake Type Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('mistake_type', '错误选项:') !!}
-    {!! Form::text('mistake_type', null, ['class' => 'form-control']) !!}
+    {!! Form::label('mistake_id', '错误选项:') !!}
+    {!! Form::text('mistake_id', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Mistake Conten Field -->
-<div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('mistake_conten', '错误内容:') !!}
-    {!! Form::textarea('mistake_conten', null, ['class' => 'form-control']) !!}
-</div>
 
 <!-- Times Field -->
 <div class="form-group col-sm-6">
@@ -30,8 +25,8 @@
 
 <!-- Num Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('num', '答题序号:') !!}
-    {!! Form::number('num', null, ['class' => 'form-control']) !!}
+    {!! Form::label('select_id', '答题序号:') !!}
+    {!! Form::number('select_id', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

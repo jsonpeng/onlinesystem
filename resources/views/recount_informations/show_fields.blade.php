@@ -24,8 +24,8 @@
 
 <!-- Mistake Conten Field -->
 <div class="form-group">
-    {!! Form::label('mistake_conten', '错误内容:') !!}
-    <p>{!! $recountInformations->mistake_conten !!}</p>
+    {!! Form::label('mistake_id', '错误内容:') !!}
+    <p>{!! $recountInformations->mistake_id !!}</p>
 </div>
 
 <!-- Times Field -->

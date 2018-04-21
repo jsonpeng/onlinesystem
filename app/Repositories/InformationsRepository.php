@@ -56,4 +56,25 @@ class InformationsRepository extends BaseRepository
         }
     }
 
+    //给题接口
+    public function givenUserInfosWithToken($type,$token,$html=false){
+        if($html){
+            $infos=Informations::where('type',$type)->with('select')->get();
+            $html_attr='';
+           foreach ($infos as $k => $v) {
+               $html_attr .='<a>题目:'.$v->title.',选项:'.$v['select'].'</a> <br />';
+           }
+           return $html_attr;
+        }
+
+        //该用户token存在
+        if(app('user')->findWithoutFail($token)){
+            return ['state'=>0,'message'=>Informations::where('type',$type)->with('select')->get()];
+        }else{
+            return ['state'=>1,'message'=>'用户token信息错误！'];
+        }
+
+
+    }
+
 }

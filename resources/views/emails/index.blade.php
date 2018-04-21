@@ -7,10 +7,10 @@
 
 </head>
 <body>
-<div>芸来软件提醒您，您收到了顾客的预约留言：</div>
-<div>电话：@if($tel){{$tel}}@endif</div>
-<div>信息：@if($info){{$info}}@endif</div>
 
-<a style="margin-top: 50px; display: block;" href="http://www.yunlike.cn" >芸来软件 www.yunlike.cn</a>
+
+<div>在线测试系统提醒您,您收到了新的消息：</div>
+<div>验证码：<strong style="color:red;">@if($code) {{ $code }} @endif</strong></div>
+
 </body>
 </html>

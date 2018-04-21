@@ -17,12 +17,9 @@ class CreateRecountInformationsTable extends Migration
             $table->increments('id');
 
             $table->integer('result')->nullable()->comment('0对 1错');
-            $table->string('mistake_type')->nullable()->comment('错误类型选项（ABCDEF）');
-            $table->string('mistake_conten')->nullable()->comment('错误内容');
+          
             $table->integer('times')->nullable()->comment('答题的次数');
-            $table->integer('num')->nullable()->comment('答题的序号');
-
-
+          
             $table->integer('user_id')->nullable()->comment('参与用户的id');
             $table->integer('info_id')->nullable()->comment('题目id');
 

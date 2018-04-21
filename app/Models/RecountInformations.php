@@ -28,12 +28,13 @@ class RecountInformations extends Model
 
 
     public $fillable = [
+        'select_id',
+        'info_id',
         'user_id',
         'result',
-        'mistake_type',
-        'mistake_conten',
+        'mistake_id',
         'times',
-        'num'
+        'select_num'
     ];
 
     /**
@@ -44,10 +45,7 @@ class RecountInformations extends Model
     protected $casts = [
         'user_id' => 'integer',
         'result' => 'integer',
-        'mistake_type' => 'string',
-        'mistake_conten' => 'string',
-        'times' => 'integer',
-        'num' => 'integer'
+        'times' => 'integer'
     ];
 
     /**
@@ -58,6 +56,22 @@ class RecountInformations extends Model
     public static $rules = [
         
     ];
+
+    //答题的用户
+    public function getUserAttribute(){
+        return app('user')->findWithoutFail($this->user_id);
+    }
+
+    //答得题
+    public function getInfoAttribute(){
+        return app('info')->findWithoutFail($this->info_id);
+    }
+
+    //答得选项
+    public function getSelectAttribute(){
+        return app('attachinfo')->findWithoutFail($this->select_id);
+    }
+    
 
     
 }

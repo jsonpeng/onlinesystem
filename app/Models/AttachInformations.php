@@ -56,5 +56,6 @@ class AttachInformations extends Model
     public function getinfosAttribute(){
         return Informations::find($this->info_id);
     }
-    
+
+
 }

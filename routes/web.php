@@ -17,8 +17,27 @@ Route::get('/', function () {
 
 //API请求
 Route::group(['prefix'=>'api'], function () {
+	//发送邮箱验证码
+	Route::get('send_mail_code','ApiController@sendEmailCode');
+
+	//注册用户
+	Route::get('reg','ApiController@regNewUser');
+
+	//登录用户
+	Route::get('login','ApiController@loginUser');
+
 	//根据题目id获取它的选项
 	Route::get('get_info_select/{id}/{status?}','ApiController@getInfoSelectById');
+
+	//必须要经过用户认证后的路由
+	Route::group(['prefix'=>'auth'],function(){
+
+		//给题接口
+		Route::get('{token}/get_infos/{type?}','ApiController@getInfoApi');
+		
+		//答题记录接口
+		Route::get('{token}/answer_infos','ApiController@AnswerRecountApi');
+	});
 });
 
 
