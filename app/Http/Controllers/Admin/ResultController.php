@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CreateResultRequest;
 use App\Http\Requests\UpdateResultRequest;
@@ -30,10 +30,19 @@ class ResultController extends AppBaseController
     public function index(Request $request)
     {
         $this->resultRepository->pushCriteria(new RequestCriteria($request));
-        $results = $this->resultRepository->all();
+        $input=$request->all();
+
+        $tools=$this->varifyTools($input);
+
+        //默认的数值
+        $results = $this->defaultSearchState($this->resultRepository->model());
+
+        $results=$this->descAndPaginateToShow($results);
 
         return view('results.index')
-            ->with('results', $results);
+                ->with('results', $results)
+                ->with('tools',$tools)
+                ->with('input',$input);
     }
 
     /**

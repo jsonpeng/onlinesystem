@@ -88,4 +88,28 @@ class RecountInformationsRepository extends BaseRepository
 
     }
 
+    //错题册
+    public function mistakeRecount($token,$times){
+
+            if(app('user')->findWithoutFail($token)){
+
+                empty($times)
+                ?
+                $mistake=RecountInformations::where('user_id',$token)->where('result',1)
+                        ->with('info')
+                        ->with('select')
+                        ->get()
+                :
+                $mistake=RecountInformations::where('user_id',$token)->where('result',1)->where('times',$times)
+                        ->with('info')
+                        ->with('select')
+                        ->get();
+
+                return ['state'=>0,'message'=>$mistake];
+
+            }else{
+                return ['state'=>1,'message'=>'用户token信息错误！'];
+            }
+    }
+
 }

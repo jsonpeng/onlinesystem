@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 //API请求
-Route::group(['prefix'=>'api'], function () {
+Route::group(['prefix'=>'api','namespace'=>'API'], function () {
 	//发送邮箱验证码
 	Route::get('send_mail_code','ApiController@sendEmailCode');
 
@@ -37,6 +37,13 @@ Route::group(['prefix'=>'api'], function () {
 		
 		//答题记录接口
 		Route::get('{token}/answer_infos','ApiController@AnswerRecountApi');
+
+		//答题结束接口
+		Route::get('{token}/stop','ApiController@endInfosApi');
+
+		//错题册
+		Route::get('{token}/mistake/{times?}','ApiController@mistakeRecount');
+
 	});
 });
 
@@ -49,18 +56,27 @@ Route::get('/', 'FrontController@index')->name('index');
 
 
 //后台管理系统
-Route::group(['middleware' => ['auth'], 'prefix' => 'online'], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => 'online','namespace'=>'Admin'], function () {
 	//后台首页
 	Route::get('/home', 'HomeController@index');
 
+
+});
+
+Route::group(['middleware' => ['auth'],'namespace'=>'Admin'], function () {
+	//后台首页
+	Route::get('/home', 'HomeController@index');
+
+	Route::resource('informations', 'InformationsController');
+
+	Route::resource('attachInformations', 'AttachInformationsController');
+
+	Route::resource('recountInformations', 'RecountInformationsController');
+
+	Route::resource('results', 'ResultController');
+
+	Route::resource('user', 'UserController');
 });
 
 
 
-Route::resource('informations', 'InformationsController');
-
-Route::resource('attachInformations', 'AttachInformationsController');
-
-Route::resource('recountInformations', 'RecountInformationsController');
-
-Route::resource('results', 'ResultController');

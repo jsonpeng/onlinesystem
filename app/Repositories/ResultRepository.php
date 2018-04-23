@@ -22,7 +22,8 @@ class ResultRepository extends BaseRepository
     protected $fieldSearchable = [
         'user_id',
         'result',
-        'type'
+        'type',
+        'times'
     ];
 
     /**
@@ -32,4 +33,30 @@ class ResultRepository extends BaseRepository
     {
         return Result::class;
     }
+
+    /**
+     *结束接口
+     */
+     public function endInfosApi($token,$input){
+        
+             if(app('user')->findWithoutFail($token)){
+
+                 $input['user_id']=$token;
+
+                if(array_key_exists('result', $input)  && $input['result'] >= 0 && $input['result'] <= 100 && array_key_exists('type', $input) && !empty($input['type'])  &&  array_key_exists('times', $input) && !empty($input['times'])  ){
+
+                    Result::create($input);
+
+                    return ['state'=>0,'message'=>'回应成功'];
+
+                }
+                else{
+                    return ['state'=>1,'message'=>'参数不完整!'];
+                }   
+
+             }
+             else{
+                return ['state'=>1,'message'=>'用户token信息错误！'];
+             }
+     }  
 }

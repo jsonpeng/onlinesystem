@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CreateRecountInformationsRequest;
 use App\Http\Requests\UpdateRecountInformationsRequest;
@@ -30,10 +30,20 @@ class RecountInformationsController extends AppBaseController
     public function index(Request $request)
     {
         $this->recountInformationsRepository->pushCriteria(new RequestCriteria($request));
-        $recountInformations = $this->recountInformationsRepository->all();
+        
+        $input=$request->all();
+
+        $tools=$this->varifyTools($input);
+
+        //默认的数值
+        $recountInformations = $this->defaultSearchState($this->recountInformationsRepository->model());
+
+        $recountInformations=$this->descAndPaginateToShow($recountInformations);
 
         return view('recount_informations.index')
-            ->with('recountInformations', $recountInformations);
+            ->with('recountInformations', $recountInformations)
+            ->with('tools',$tools)
+            ->with('input',$input);
     }
 
     /**

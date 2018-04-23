@@ -15,7 +15,7 @@ class Controller extends BaseController
      * @return [int] [分页数目]
      */
     public function defaultPage(){
-        return 10;
+        return 6;
     }
 
     /**
@@ -52,9 +52,11 @@ class Controller extends BaseController
     /**
      * 查询索引初始化状态
      */
-    public function defaultSearchState($obj){
+    public function defaultSearchState($obj,$admin=false){
          if(!empty($obj)){
-            return $obj::where('id','>',0);
+
+            return  $admin?$obj::where('name','<>','管理员'):$obj::where('id','>',0);
+
          }else{
             return [];
          }

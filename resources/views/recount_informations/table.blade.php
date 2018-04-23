@@ -26,8 +26,8 @@
             <td>
                 {!! Form::open(['route' => ['recountInformations.destroy', $recountInformations->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    <a href="{!! route('recountInformations.show', [$recountInformations->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('recountInformations.edit', [$recountInformations->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                <!--     <a href="{!! route('recountInformations.show', [$recountInformations->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="{!! route('recountInformations.edit', [$recountInformations->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a> -->
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('你确定吗?')"]) !!}
                 </div>
                 {!! Form::close() !!}

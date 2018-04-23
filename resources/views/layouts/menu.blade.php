@@ -16,3 +16,6 @@
     <a href="{!! route('results.index') !!}"><i class="fa fa-edit"></i><span>答题结果</span></a>
 </li>
 
+<li class="{{ Request::is('user*') ? 'active' : '' }}">
+    <a href="{!! route('user.index') !!}"><i class="fa fa-edit"></i><span>用户列表</span></a>
+</li>

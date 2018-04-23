@@ -72,6 +72,13 @@ class RecountInformations extends Model
         return app('attachinfo')->findWithoutFail($this->select_id);
     }
     
+    public function info(){
+        return $this->belongsTo('App\Models\Informations','info_id','id');
+    }
+
+    public function select(){
+       return $this->belongsTo('App\Models\AttachInformations','select_id','id');
+    }
 
     
 }

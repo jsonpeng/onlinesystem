@@ -27,7 +27,8 @@ class Result extends Model
     public $fillable = [
         'user_id',
         'result',
-        'type'
+        'type',
+        'times'
     ];
 
     /**
@@ -49,6 +50,11 @@ class Result extends Model
     public static $rules = [
         
     ];
+
+    //答题用户
+    public function getUserAttribute(){
+        return optional(app('user')->findWithoutFail($this->user_id));
+    }
 
     
 }

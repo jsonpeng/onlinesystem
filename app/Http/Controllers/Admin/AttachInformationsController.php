@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CreateAttachInformationsRequest;
 use App\Http\Requests\UpdateAttachInformationsRequest;
@@ -11,6 +11,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Config;
+
 
 class AttachInformationsController extends AppBaseController
 {

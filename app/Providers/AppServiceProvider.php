@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('user', 'App\Repositories\UserRepository');
         $this->app->singleton('attachinfo','App\Repositories\AttachInformationsRepository');
         $this->app->singleton('recountinfo','App\Repositories\RecountInformationsRepository');
+        $this->app->singleton('result','App\Repositories\ResultRepository');
         
     }
 }
